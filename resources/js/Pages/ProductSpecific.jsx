@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { usePage } from '@inertiajs/react';
 
 export default function ProductSpecific({ auth }) {
     const [product, setProduct] = useState(null);
+    const { props } = usePage();
+    const { id } = props;
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/products')
-            .then(response => response.json())
-            .then(data => {
-                if (Array.isArray(data) && data.length > 0) {
-                    setProduct(data[0]);
-                }
+        if (!id) return;
+
+        axios.get(`http://localhost:8000/api/products/${id}`)
+            .then(response => {
+                setProduct(response.data);
+                console.log(response.data);
             })
-            .catch(error => console.error("Error al obtener el producto:", error));
-    }, []);
+            .catch(error => {
+                console.error("Error al obtener el producto:", error);
+            });
+    }, [id]);
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -21,7 +27,7 @@ export default function ProductSpecific({ auth }) {
                 {product ? (
                     <div className="flex flex-col md:flex-row items-center gap-8 border shadow-lg rounded p-6 bg-base-100">
                         <img 
-                            src={`http://localhost:8000/storage/${product.image}`} 
+                            src={`/storage/${product.image}`} 
                             alt={product.name} 
                             className="w-full md:w-1/2 h-96 object-cover rounded-lg"
                         />

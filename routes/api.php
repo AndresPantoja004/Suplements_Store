@@ -8,6 +8,7 @@ use App\Http\Controllers\API\ProductController;
 // Rutas públicas
 Route::get('/categories', [CategoryController::class, 'index']);        // Listar todas las categorías
 Route::get('/categories/{id}', [CategoryController::class, 'show']);    // Mostrar una categoría específica
+Route::get('/products/{id}', [ProductController::class, 'show']);    // Mostrar un producto específico
 Route::post('/login', [AuthController::class, 'login']);      // Login
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Logout
 Route::get('/products', [ProductController::class, 'index']);        // Listar todos los productos

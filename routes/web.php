@@ -34,9 +34,14 @@ Route::get('/productlist', function () {
     return Inertia::render('ProductList');
 })->middleware(['auth', 'verified'])->name('productlist');
 
-Route::get('/productspecific', function () {
-    return Inertia::render('ProductSpecific');
+
+Route::get('/product/{id}', function ($id) {
+    return Inertia::render('ProductSpecific', [
+        'id' => $id
+    ]);
 })->middleware(['auth', 'verified'])->name('productspecific');
+
+
 
 
 Route::get('/dashboard', function () {

@@ -51,7 +51,7 @@ export default function Welcome({ auth }) {
                 <div className="divider"></div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5  gap-3 ">
                 {products.map((product) => (
-                        <div key={product.id} className="card bg-base-100 shadow-xl max-w-64">
+                        <a href={`/product/${product.id}`} key={product.id} className="card bg-base-100 shadow-xl max-w-64">
                         <figure className='bg-gray-200'>
                             <img
                                 src={"storage/"+product.image}
@@ -63,10 +63,10 @@ export default function Welcome({ auth }) {
                             <h2 className="card-title">{product.name}</h2>
                             <p className="text-lg font-semibold">$ {product.price}</p>
                             <div className="card-actions justify-end">
-                                <button className="btn btn-primary">Agregar al carrito</button>
+                                <a href={`/product/${product.id}`} className="btn btn-primary">Agregar al carrito</a>
                             </div>
                         </div>
-                    </div>  
+                    </a>  
                 ))}
 
                 </div>
