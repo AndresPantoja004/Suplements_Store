@@ -5,13 +5,12 @@ import { usePage } from '@inertiajs/react';
 
 export default function ProductSpecific({ auth }) {
     const [product, setProduct] = useState(null);
-    const { props } = usePage();
-    const { id } = props;
+    const { id } = usePage().props;
 
     useEffect(() => {
         if (!id) return;
 
-        axios.get(`http://localhost:8000/api/products/${id}`)
+        axios.get(`/api/products/${id}`)
             .then(response => {
                 setProduct(response.data);
                 console.log(response.data);
@@ -20,6 +19,23 @@ export default function ProductSpecific({ auth }) {
                 console.error("Error al obtener el producto:", error);
             });
     }, [id]);
+
+    const handleAddToCart = () => {
+    axios.post('/api/cart/add', {
+            product_id: product.id,
+            quantity: 1 // puedes hacer esto dinámico
+        }, {
+            headers: {
+                'Authorization': `Bearer ${auth.user.token}` // si usas sanctum/jwt
+            }
+        })
+        .then(res => {
+            alert(res.data.message);
+        })
+        .catch(err => {
+            console.error('Error al agregar al carrito:', err);
+        });
+    };
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -36,10 +52,12 @@ export default function ProductSpecific({ auth }) {
                             <p className="text-gray-700 mb-4">{product.description}</p>
                             <p className="text-xl text-green-600 font-semibold mb-2">Precio: ${product.price}</p>
                             <p className="text-sm text-gray-500">Stock disponible: {product.stock}</p>
+                            <button onClick={handleAddToCart} className='btn btn-success mt-5'>Add cart</button>
                         </div>
+                        
                     </div>
                 ) : (
-                    <p className="text-center text-gray-500">Cargando producto...</p>
+                    <span className="loading loading-ring loading-xl"></span>
                 )}
             </div>
         </AuthenticatedLayout>

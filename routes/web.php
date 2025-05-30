@@ -41,7 +41,9 @@ Route::get('/product/{id}', function ($id) {
     ]);
 })->middleware(['auth', 'verified'])->name('productspecific');
 
-
+Route::get('/cart', function () {
+    return Inertia::render('CartProducts');
+})->middleware(['auth', 'verified'])->name('cart');
 
 
 Route::get('/dashboard', function () {

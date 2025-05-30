@@ -74,22 +74,24 @@ export default function Welcome({ auth }) {
                     <h3 className='text-xl font-bold'>Productos nuevos</h3>
                     <div className='divider'></div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5  gap-3 ">
+                    {products.map(product =>(
                         <div className="card bg-base-100 shadow-xl max-w-64">
                             <figure>
                                 <img
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                    alt="Producto destacado"
+                                    src={"storage/"+product.image}
+                                    alt={product.name}
                                     className="w-full h-48 object-cover"
                                 />
                             </figure>
                             <div className="card-body">
-                                <h2 className="card-title">Producto destacado</h2>
-                                <p className="text-lg font-semibold">$19.99</p>
+                                <h2 className="card-title">{product.name}</h2>
+                                <p className="text-lg font-semibold">$ {product.price}</p>
                                 <div className="card-actions justify-end">
                                     <button className="btn btn-primary">Agregar al carrito</button>
                                 </div>
                             </div>
                         </div>  
+                    ))}
                     </div>
                 </div>
             </div>

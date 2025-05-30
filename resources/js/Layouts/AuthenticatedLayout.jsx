@@ -77,7 +77,7 @@ export default function Authenticated({ user, header, children }) {
                         </label>
 
                         {/* Carrito */}
-                        <div className="dropdown dropdown-end">
+                        <div  className="dropdown dropdown-end">
                             <div tabIndex={0} className="btn btn-ghost btn-circle">
                                 <div className="indicator">
                                     <svg className="h-5 w-5" fill="none" stroke="currentColor"
@@ -93,7 +93,7 @@ export default function Authenticated({ user, header, children }) {
                                     <span className="font-bold text-lg">8 artículos</span>
                                     <span className="text-info">Subtotal: $999</span>
                                     <div className="card-actions">
-                                        <button className="btn btn-primary btn-block">Ver carrito</button>
+                                        <a href='/cart'  className="btn btn-primary btn-block">Ver carrito</a>
                                     </div>
                                 </div>
                             </div>

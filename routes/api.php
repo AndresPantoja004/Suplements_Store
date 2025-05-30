@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\CartController;
 
 // Rutas públicas
 Route::get('/categories', [CategoryController::class, 'index']);        // Listar todas las categorías
@@ -20,8 +21,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/categories/{id}', [CategoryController::class, 'update']); // Actualizar categoría
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy']); // Eliminar categoría
     Route::delete('/products/{id}', [CategoryController::class, 'destroy']); // Eliminar producto
-
-
+    Route::post('/cart/add', [CartController::class, 'addToCart']);
+    Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'getCart']);
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
